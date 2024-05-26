@@ -1,12 +1,46 @@
-import { Group, ActionIcon, Box, Slider, Mark, Center } from "@mantine/core";
+import {
+	Group,
+	ActionIcon,
+	Box,
+	Slider,
+	Mark,
+	Center,
+	RangeSlider,
+} from "@mantine/core";
 import {
 	IconPlayerPlay,
 	IconPlayerPause,
 	IconPlayerTrackNext,
 	IconPlayerTrackPrev,
 } from "@tabler/icons-react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
-export default function Footer() {
+interface FooterProps {
+	videoFile: File | null;
+	videoRef: RefObject<HTMLVideoElement>;
+}
+
+export default function Footer({ videoFile, videoRef }: FooterProps) {
+	const [duration, setDuration] = useState<number | null>(null);
+	const timelineRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (videoFile) {
+			const videoURL = URL.createObjectURL(videoFile);
+			if (videoRef.current) {
+				videoRef.current.src = videoURL;
+				videoRef.current.onloadedmetadata = () => {
+					if (videoRef.current) {
+						setDuration(videoRef.current.duration);
+					}
+				};
+			}
+		}
+	}, [videoFile]);
+	function handleTimelineChange(e: number[]) {
+		if (videoRef.current) videoRef.current.currentTime = e[0];
+	}
+
 	return (
 		<Group
 			align="center"
@@ -16,7 +50,7 @@ export default function Footer() {
 				gridColumn: "1/3",
 			}}
 		>
-			<Group gap="xs">
+			{/* <Group gap="xs">
 				<ActionIcon>
 					<IconPlayerTrackPrev size={16} />
 				</ActionIcon>
@@ -29,23 +63,30 @@ export default function Footer() {
 				<ActionIcon>
 					<IconPlayerTrackNext size={16} />
 				</ActionIcon>
-			</Group>
+			</Group> */}
 
 			<Box style={{ width: "80%" }}>
-				<Slider
-					marks={[
-						{ value: 10, label: "10s" },
-						{ value: 20, label: "20s" },
-						{ value: 30, label: "30s" },
-						{ value: 40, label: "40s" },
-						{ value: 50, label: "50s" },
-					]}
+				<RangeSlider
+					ref={timelineRef}
+					minRange={0.2}
+					min={0}
+					max={duration || 1}
+					step={0.05}
+					onChange={handleTimelineChange}
+					// defaultValue={[0.1245, 0.5535]}
+				/>
+				<video
+					ref={videoRef}
+					style={{ display: "none" }}
 				/>
 			</Box>
 
 			<Center>
 				<Box mr="md">00:00.0</Box>
-				<Box>/ 01:00.0</Box>
+				<Box>
+					{videoFile &&
+						`/ ${Math.floor(videoFile.size / 1024 / 1024)} MB`}
+				</Box>
 			</Center>
 		</Group>
 	);

@@ -1,10 +1,34 @@
-import { Box, Group, Button, Stack, Center, Text } from "@mantine/core";
+import {
+	Box,
+	Group,
+	Button,
+	Stack,
+	Center,
+	Text,
+	Container,
+	Paper,
+} from "@mantine/core";
+import { RefObject, useEffect } from "react";
 
-export default function Viewport() {
+interface ViewportProps {
+	videoFile: File | null;
+	videoRef: RefObject<HTMLVideoElement>;
+}
+
+export default function Viewport({ videoFile, videoRef }: ViewportProps) {
+	useEffect(() => {
+		console.log(
+			"🚀 ~ useEffect ~ videoRef.current?.currentTime:",
+			videoRef.current?.currentTime
+		);
+	}, [videoRef.current?.currentTime]);
+
 	return (
 		<Stack
 			gap={0}
 			mt="md"
+			mx="md"
+			my="md"
 		>
 			<Group mb="xs">
 				<Button variant="outline">Landscape</Button>
@@ -12,7 +36,7 @@ export default function Viewport() {
 			</Group>
 			<Box
 				style={{
-					width: 800,
+					width: "100%",
 					height: 450,
 					backgroundColor: "black",
 					display: "flex",
@@ -20,14 +44,27 @@ export default function Viewport() {
 					justifyContent: "center",
 				}}
 			>
-				<Center>
-					<Text
-						color="dimmed"
-						size="xl"
+				{" "}
+				{videoFile ? (
+					<video
+						ref={videoRef}
+						// controls
+						style={{
+							display: "flex",
+							height: "100%",
+							objectFit: "contain",
+						}}
 					>
-						Video/Audio Viewport
-					</Text>
-				</Center>
+						<source
+							src={URL.createObjectURL(videoFile)}
+							type="video/mp4"
+						/>
+					</video>
+				) : (
+					<Center>
+						<Text size="xl">Video/Audio Viewport</Text>
+					</Center>
+				)}
 			</Box>
 			<Group
 				justify="center"

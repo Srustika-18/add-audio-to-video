@@ -8,8 +8,23 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-export default function Dropbox() {
+interface DropboxProps {
+	onFileUpload: (file: File) => void;
+	onModalClose: () => void;
+}
+
+export default function Dropbox({ onFileUpload, onModalClose }: DropboxProps) {
 	const [opened, setOpened] = useState(true);
+
+	const handleModalClose = () => {
+		setOpened(false);
+		onModalClose();
+	};
+
+	const handleFileUpload = (file: File) => {
+		onFileUpload(file);
+		handleModalClose();
+	};
 
 	return (
 		<Modal
@@ -36,7 +51,7 @@ export default function Dropbox() {
 			</Group>
 			<Group justify="center">
 				<Dropzone
-					onDrop={(files) => console.log("accepted files", files)}
+					onDrop={(files) => handleFileUpload(files[0])}
 					onReject={(files) => console.log("rejected files", files)}
 					accept={{
 						"video/*": [],
