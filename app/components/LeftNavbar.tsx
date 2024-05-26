@@ -28,6 +28,7 @@ export default function LeftNavbar() {
 
 	const mainLinks = mainLinksMockdata.map((link) => (
 		<Group
+			key={link.label}
 			justify="center"
 			align="center"
 			gap={0}

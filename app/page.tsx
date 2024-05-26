@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Group, AppShell, MantineProvider } from "@mantine/core";
+import { Box, Group, AppShell, MantineProvider, Skeleton } from "@mantine/core";
 import Dropbox from "./components/Dropbox";
 import LeftNavbar from "./components/LeftNavbar";
 import Footer from "./components/Footer";
@@ -19,28 +19,30 @@ export default function Home() {
 		>
 			<AppShell
 				navbar={{
-					width: "auto",
+					width: 100,
 					breakpoint: "sm",
-					collapsed: { mobile: true },
+					// collapsed: { mobile: !opened },
 				}}
 			>
-				<AppShell.Navbar
-					p="md"
-				>
+				<AppShell.Navbar p="md">
 					<LeftNavbar />
 				</AppShell.Navbar>
-				{/* <AppShell.Main> */}
-					<Box
+				<Dropbox />
+
+				<AppShell.Main>
+					<Group
 						style={{
-							// display: "grid",
+							height: "100svh",
+							display: "grid",
+							gridTemplateColumns: "20rem 1fr",
+							gridTemplateRows: "1fr auto",
 						}}
 					>
-						<Dropbox />
+						<LeftAssistNavbar />
 						<Viewport />
-						{/* <LeftAssistNavbar /> */}
 						<Footer />
-					</Box>
-				{/* </AppShell.Main> */}
+					</Group>
+				</AppShell.Main>
 			</AppShell>
 		</MantineProvider>
 	);

@@ -12,6 +12,9 @@ export default function Footer() {
 			align="center"
 			mt="md"
 			p="md"
+			style={{
+				gridColumn: "1/3",
+			}}
 		>
 			<Group gap="xs">
 				<ActionIcon>

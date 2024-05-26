@@ -36,10 +36,16 @@ export default function LeftAssistNavbar() {
 	));
 
 	return (
-		<Box className={classes.main}>
+		<Box
+			style={{
+				backgroundColor:
+					"light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))",
+				border: "1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7))",
+			}}
+		>
 			<Title
 				order={4}
-				className={classes.title}
+				style={titleStyle}
 			>
 				{active}
 			</Title>
@@ -48,3 +54,13 @@ export default function LeftAssistNavbar() {
 		</Box>
 	);
 }
+
+const titleStyle = {
+	marginBottom: "var(--mantine-spacing-xl)",
+	backgroundColor: "var(--mantine-color-body)",
+	padding: "var(--mantine-spacing-md)",
+	paddingTop: "rem(18px)",
+	height: "rem(60px)",
+	borderBottom:
+		"rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7))",
+};
