@@ -5,19 +5,17 @@ import classes from "../styles/LeftNavbar.module.css";
 const linksMockdata = [
 	"Security",
 	"Settings",
-	"Dashboard",
-	"Releases",
-	"Account",
-	"Orders",
-	"Clients",
-	"Databases",
-	"Pull Requests",
-	"Open Issues",
-	"Wiki pages",
+	"Media",
+	"Audio",
+	"Subtitle",
+	"Elements",
+	"Text",
+	"Record",
+	"Help",
 ];
 
 export default function LeftAssistNavbar() {
-	const [active, setActive] = useState("Releases");
+	const [active, setActive] = useState("Media");
 	const [activeLink, setActiveLink] = useState("Settings");
 
 	const links = linksMockdata.map((link) => (

@@ -4,22 +4,30 @@ import {
 	IconDeviceDesktopAnalytics,
 	IconFingerprint,
 	IconGauge,
+	IconAd,
 	IconMenu2,
 	IconSearch,
 	IconSettings,
 	IconUser,
+	IconMusic,
+	IconLetterA,
+	IconNote,
+	IconLetterT,
+	IconVideo,
+	IconHelp,
 } from "@tabler/icons-react";
 import { useState } from "react";
 import classes from "../styles/LeftNavbar.module.css";
 
 const mainLinksMockdata = [
 	{ icon: IconSearch, label: "Search" },
-	{ icon: IconGauge, label: "Dashboard" },
-	{ icon: IconDeviceDesktopAnalytics, label: "Analytics" },
-	{ icon: IconCalendarStats, label: "Releases" },
-	{ icon: IconUser, label: "Account" },
-	{ icon: IconFingerprint, label: "Security" },
-	{ icon: IconSettings, label: "Settings" },
+	{ icon: IconAd, label: "Media" },
+	{ icon: IconMusic, label: "Audio" },
+	{ icon: IconLetterA, label: "Subtitle" },
+	{ icon: IconNote, label: "Elements" },
+	{ icon: IconLetterT, label: "Text" },
+	{ icon: IconVideo, label: "Record" },
+	{ icon: IconHelp, label: "Help" },
 ];
 
 export default function LeftNavbar() {

@@ -48,7 +48,7 @@ export default function Viewport({ videoFile, videoRef }: ViewportProps) {
 				{videoFile ? (
 					<video
 						ref={videoRef}
-						// controls
+						controls
 						style={{
 							display: "flex",
 							height: "100%",

@@ -37,8 +37,15 @@ export default function Footer({ videoFile, videoRef }: FooterProps) {
 			}
 		}
 	}, [videoFile]);
+
 	function handleTimelineChange(e: number[]) {
-		if (videoRef.current) videoRef.current.currentTime = e[0];
+		if (videoRef.current) {
+			videoRef.current.currentTime = e[0];
+			console.log(
+				"🚀 ~ handleTimelineChange ~ videoRef.current.currentTime:",
+				videoRef.current.currentTime
+			);
+		}
 	}
 
 	return (
@@ -50,7 +57,7 @@ export default function Footer({ videoFile, videoRef }: FooterProps) {
 				gridColumn: "1/3",
 			}}
 		>
-			{/* <Group gap="xs">
+			<Group gap="xs">
 				<ActionIcon>
 					<IconPlayerTrackPrev size={16} />
 				</ActionIcon>
@@ -63,12 +70,12 @@ export default function Footer({ videoFile, videoRef }: FooterProps) {
 				<ActionIcon>
 					<IconPlayerTrackNext size={16} />
 				</ActionIcon>
-			</Group> */}
+			</Group>
 
 			<Box style={{ width: "80%" }}>
 				<RangeSlider
 					ref={timelineRef}
-					minRange={0.2}
+					minRange={1}
 					min={0}
 					max={duration || 1}
 					step={0.05}
