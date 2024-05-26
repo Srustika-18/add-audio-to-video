@@ -1,45 +1,47 @@
-"use client"
+"use client";
 
-import { Box, Group, AppShell } from "@mantine/core";
+import { Box, Group, AppShell, MantineProvider } from "@mantine/core";
 import Dropbox from "./components/Dropbox";
 import LeftNavbar from "./components/LeftNavbar";
 import Footer from "./components/Footer";
 import Viewport from "./components/Viewport";
 import { useDisclosure } from "@mantine/hooks";
+import LeftAssistNavbar from "@/app/components/LeftAssistNavbar";
 
 export default function Home() {
 	const [opened, { toggle }] = useDisclosure();
 
 	return (
-		<AppShell
-			navbar={{
-				width: 300,
-				breakpoint: "sm",
-				// collapsed: { mobile: !opened },
-			}}
-			footer={{
-				height: 140,
-			}}
-			styles={{
-				main: { padding: 0 },
+		<MantineProvider
+			theme={{
+				primaryColor: "indigo",
 			}}
 		>
-			<AppShell.Navbar p="md">
-				<LeftNavbar />
-			</AppShell.Navbar>
-			<Box
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
+			<AppShell
+				navbar={{
+					width: "auto",
+					breakpoint: "sm",
+					collapsed: { mobile: true },
 				}}
 			>
-				<Dropbox />
-				<Viewport />
-			</Box>
-			<AppShell.Footer p="md">
-				<Footer />
-			</AppShell.Footer>
-		</AppShell>
+				<AppShell.Navbar
+					p="md"
+				>
+					<LeftNavbar />
+				</AppShell.Navbar>
+				{/* <AppShell.Main> */}
+					<Box
+						style={{
+							// display: "grid",
+						}}
+					>
+						<Dropbox />
+						<Viewport />
+						{/* <LeftAssistNavbar /> */}
+						<Footer />
+					</Box>
+				{/* </AppShell.Main> */}
+			</AppShell>
+		</MantineProvider>
 	);
 }

@@ -1,58 +1,65 @@
-import { NavLink, Box, Group, Anchor, Text, ScrollArea } from "@mantine/core";
+import { Box, Group, Text, Title, UnstyledButton, rem } from "@mantine/core";
 import {
-	IconUpload,
-	IconBrandInstagram,
-	IconSpeakerphone,
-	IconMusic,
+	IconCalendarStats,
+	IconDeviceDesktopAnalytics,
+	IconFingerprint,
+	IconGauge,
+	IconMenu2,
+	IconSearch,
+	IconSettings,
+	IconUser,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import classes from "../styles/LeftNavbar.module.css";
+
+const mainLinksMockdata = [
+	{ icon: IconSearch, label: "Search" },
+	{ icon: IconGauge, label: "Dashboard" },
+	{ icon: IconDeviceDesktopAnalytics, label: "Analytics" },
+	{ icon: IconCalendarStats, label: "Releases" },
+	{ icon: IconUser, label: "Account" },
+	{ icon: IconFingerprint, label: "Security" },
+	{ icon: IconSettings, label: "Settings" },
+];
 
 export default function LeftNavbar() {
-	return (
-		<Box style={{ width: 300 }}>
-			<NavLink
-				label="Upload a File"
-				leftSection={<IconUpload size={16} />}
-				childrenOffset={28}
-				defaultOpened
+	const [active, setActive] = useState("Releases");
+	const [activeLink, setActiveLink] = useState("Settings");
+
+	const mainLinks = mainLinksMockdata.map((link) => (
+		<Group
+			justify="center"
+			align="center"
+			gap={0}
+			display="flex"
+			style={{
+				flexDirection: "column",
+			}}
+		>
+			<UnstyledButton
+				onClick={() => setActive(link.label)}
+				className={classes.mainLink}
+				data-active={link.label === active || undefined}
 			>
-				<ScrollArea offsetScrollbars>
-					<Anchor
-						component="a"
-						href="#"
-					>
-						<Group gap="xs">
-							<IconUpload size={16} />
-							<Text>Drag & drop a file</Text>
-						</Group>
-					</Anchor>
-					<Anchor
-						component="a"
-						href="#"
-					>
-						<Group gap="xs">
-							<IconUpload size={16} />
-							<Text>Import from a link</Text>
-						</Group>
-					</Anchor>
-				</ScrollArea>
-			</NavLink>
-			<NavLink
-				label="Brand Kit"
-				leftSection={<IconBrandInstagram size={16} />}
-				childrenOffset={28}
-			/>
-			<NavLink
-				label="Text To Speech"
-				leftSection={<IconSpeakerphone size={16} />}
-				childrenOffset={28}
-			/>
-			<NavLink
-				label="Voice Clone"
-				leftSection={<IconMusic size={16} />}
-				childrenOffset={28}
-			/>
-			<Box mt="md">AI Avatars</Box>
-			{/* Render AI Avatars */}
+				<link.icon
+					style={{ width: rem(22), height: rem(22) }}
+					stroke={1.5}
+				/>
+			</UnstyledButton>
+			<Text size="xs">{link.label}</Text>
+		</Group>
+	));
+
+	return (
+		<Box className={classes.navbar}>
+			<Box className={classes.wrapper}>
+				<Box className={classes.aside}>
+					<Box className={classes.logo}>
+						<IconMenu2 />
+					</Box>
+					<Group className={classes.mainlinks}>{mainLinks}</Group>
+				</Box>
+			</Box>
 		</Box>
 	);
 }
